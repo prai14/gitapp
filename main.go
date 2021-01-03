@@ -8,6 +8,7 @@ import (
 
 func main() {
 	fmt.Println("Starting main function")
-	go user.Handler()
+	go user.HandlerUserService()
+	go user.HandlerRepoService()
 	oauth.Handler()
 }

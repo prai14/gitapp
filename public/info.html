@@ -7,18 +7,58 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>github-app</title>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<style> 
+		.div1 {
+		  width: 600px;
+		  height: 100px;
+		  position: 10px;
+		  padding: 50px;
+		  margin-top: 10px;  
+		 
+		  border: 1px solid blue;
+		}
+		
+		.div2 {
+			width: 600px;
+		  height: 100px;
+		  position: 10px;
+		  padding: 50px;
+		  margin-top: 200px;  
+		 
+		  border: 1px solid blue;
+		}
+
+		.div3 {
+		  width: 600px;
+		  height: 20px;
+		  padding: 50px;  
+		 
+		}
+		</style>
 </head>
 
 <body>
 	<a href="https://github.com/logout">Logout with github</a>
 
+
+		<div class="div1">
+			<label for="userId">User Id:</label>
+			<input type="text" id="userId" name="userId" value="prai14">
+			<button type="button" onclick="loadUser()">load user</button>
+			<br><div id="plaveHolder"/><br><br><br><br>
+			<label for="userId"></label>
+			<label for="userId"></label>
+		</div>
+		<div class="div2">
+		<label for="ownerId">Owner:</label><input type="text" id="ownerId" name="ownerId" value="prai14"><br>
+		<label for="repoId">Repo:</label><input type="text" id="repoId" name="repoId" value="Hello-World"><br>
+		<button type="button" onclick="loadRepo()">load Repo</button><br><br>
+
+		<div class="div3" id="repoPlaveHolder"/>
+	</div>
+		<br><br><br>
 	
-		<label for="userId">User Id:</label><br>
-		<input type="text" id="userId" name="userId" value="prai14"><br>
-		<button type="button" onclick="loadDoc()">load user</button>
-
-		<div id="plaveHolder"/>
-
 </body>
 
 <script>
@@ -27,12 +67,49 @@
 	const query = window.location.search.substring(1)
 	const token = query.split('access_token=')[1]
 	var loginName = "prai14";
-	const url = "http://localhost:8080/api/user/info/get"
+	const urlUser = "http://localhost:8080/api/user/info/get"
+	const urlRepo = "http://localhost:8080/api/repos/info/get"
 	
 	
+	
+	function loadRepo() {
 
+owner = document.getElementById("ownerId").value;
+repo = document.getElementById("repoId").value;
+payload  = { 
+	"oauth_token": token,
+	  "owner": loginName,
+	  "repo": repo
+};
+	
+jQuery.ajax({
+		url 		: urlRepo,
+		type		: 'POST',
+		contentType	: 'application/json',
+		data		: JSON.stringify(payload),
+		accepts		: {
+			json: 'application/json'
+		},
+		success : function(data){
+			res = data;
+			console.log(data)
+			
+			const nameNode = document.createTextNode(`Repo, ${res.name}`)
+
+			var list = document.getElementById("repoPlaveHolder");   // Get the <ul> element with id="myList"
+				var len = list.childNodes.length;
+				console.log(len)
+				for(var i= 0; i < len ; i++ ) {
+					console.log(list.childNodes[0])
+					list.removeChild(list.childNodes[0]);
+				}
+			
+			document.getElementById("repoPlaveHolder").appendChild(nameNode)	
+		}
+	});
+}
 	// Call the user info API using the fetch browser library
-	function loadDoc() {
+	function loadUser() {
 
 	loginName = document.getElementById("userId").value;
 	payload  = { 
@@ -41,7 +118,7 @@
 	};
 		
 	jQuery.ajax({
-			url 		: url,
+			url 		: urlUser,
 			type		: 'POST',
 			contentType	: 'application/json',
 			data		: JSON.stringify(payload),
@@ -67,7 +144,7 @@
 		});
 	}
 
-	loadDoc();
+	loadUser();
 </script>
 
 </html>
