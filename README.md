@@ -1,12 +1,19 @@
-## Go OAuth example
-
-Read the blog post [here](https://www.sohamkamani.com/blog/golang/2018-06-24-oauth-with-golang/)
-
+## Go OAuth GitHub example
 This is an example node application that implements Githubs OAuth2 API.
 
-In order to run the application:
 
-1. Register your new application on Github : https://github.com/settings/applications/new. In the "callback URL" field, enter "http://localhost:8090/oauth/redirect". Once you register, you will get a client ID and client secret.
-2. Replace the values of the `clientID` and `clientSecret` variables in the [main.go](/main.go) file and also the [index.html](https://github.com/sohamkamani/go-oauth-example/blob/master/public/index.html#L14) file 
-4. Start the server by executing `go run main.go`
-5. Navigate to http://localhost:8090 on your browser.
+## In order to run the application:
+### Run the resgate Realtime API Gateway Server + NATS 
+$ sudo docker network create res 
+$ sudo docker run -d --name nats -p 4222:4222 --net res nats 
+$ sudo docker run --name resgate -p 8080:8080 --net res resgateio/resgate --nats nats://nats:4222
+
+### Run OAuth server + User Service
+added both module in a single app. 
+$ got get github.com/prai14/gitapp
+$ cd gitapp
+$ go build
+$ ./gitApp OR
+$ go run .
+
+## open link in browser http://localhost:8090
