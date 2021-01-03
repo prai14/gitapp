@@ -14,9 +14,9 @@ $ sudo docker run --name resgate -p 8080:8080 --net res resgateio/resgate --nats
 ### Run OAuth server + User Service
 added both module in a single app. 
 $ got get github.com/prai14/gitapp
-$ cd gitapp
-$ go build
-$ ./gitApp OR
-$ go run .
+$ cd gitapp \
+$ go build \
+$ ./gitApp OR \
+$ go run . 
 
 ## open link in browser http://localhost:8090
