@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>github-app</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+	<a href="https://github.com/logout">Logout with github</a>
+
+	
+		<label for="userId">User Id:</label><br>
+		<input type="text" id="userId" name="userId" value="prai14"><br>
+		<button type="button" onclick="loadDoc()">load user</button>
+
+		<div id="plaveHolder"/>
+
+</body>
+
+<script>
+	// We can get the token from the "access_token" query
+	// param, available in the browsers "location" global
+	const query = window.location.search.substring(1)
+	const token = query.split('access_token=')[1]
+	var loginName = "prai14";
+	const url = "http://localhost:8080/api/user/info/get"
+	
+	
+
+	// Call the user info API using the fetch browser library
+	function loadDoc() {
+
+	loginName = document.getElementById("userId").value;
+	payload  = { 
+		"oauth_token": token,
+  		"login_id": loginName
+	};
+		
+	jQuery.ajax({
+			url 		: url,
+			type		: 'POST',
+			contentType	: 'application/json',
+			data		: JSON.stringify(payload),
+			accepts		: {
+		        json: 'application/json'
+		    },
+			success : function(data){
+				res = data;
+				console.log(data)
+				
+				const nameNode = document.createTextNode(`Welcome, ${res.login}`)
+
+				var list = document.getElementById("plaveHolder");   // Get the <ul> element with id="myList"
+					var len = list.childNodes.length;
+					console.log(len)
+					for(var i= 0; i < len ; i++ ) {
+						console.log(list.childNodes[0])
+						list.removeChild(list.childNodes[0]);
+					}
+				
+				document.getElementById("plaveHolder").appendChild(nameNode)	
+			}
+		});
+	}
+
+	loadDoc();
+</script>
+
+</html>
