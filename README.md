@@ -8,7 +8,7 @@ https://nats.io/blog/resgate_nats/
 
 $ sudo docker network create res \
 $ sudo docker run -d --name nats -p 4222:4222 --net res nats \
-$ sudo docker run --name resgate -p 8080:8080 --net res resgateio/resgate --nats nats://nats:4222 \
+$ sudo docker run --name resgate -p 8080:8080 --net res resgateio/resgate --nats nats://nats:4222 
 
 
 ### Run OAuth server + User Service
