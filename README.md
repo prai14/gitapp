@@ -20,3 +20,8 @@ $ ./gitApp OR \
 $ go run . 
 
 ## open link in browser http://localhost:8090
+
+## Run in Docker -
+$ cd gitapp \
+$ docker build -t gitapp . \
+$ docker run -p 8090:8090 -it my-go-app
