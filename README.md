@@ -24,4 +24,4 @@ $ go run .
 ## Run in Docker -
 $ cd gitapp \
 $ docker build -t gitapp . \
-$ docker run -p 8090:8090 -it my-go-app
+$ docker run -p 8090:8090 -it gitapp
